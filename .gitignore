@@ -108,3 +108,6 @@ venv.bak/
 
 # db files
 *.db
+
+#garbage ide files
+.idea/*
