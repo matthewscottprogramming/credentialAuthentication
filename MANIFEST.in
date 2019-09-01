@@ -1,0 +1,3 @@
+graft credentialAuthentication/static
+graft credentialAuthentication/templates
+global-exclude *.pyc
