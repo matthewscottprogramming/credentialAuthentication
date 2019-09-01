@@ -1,7 +1,8 @@
 import datetime
 
-from flask.ext.bcrypt import generate_password_hash
-from flask.ext.login import UserMixin
+from werkzeug.security import generate_password_hash
+from flask_login import UserMixin
+# from xyz import * is evil (akin to using namespace std in c++)
 from peewee import *
 
 DATABASE = SqliteDatabase('social.db')
@@ -46,10 +47,10 @@ class User(UserMixin, Model):
         except IntegrityError:
             raise ValueError("User already exists")
 
-class Post (Model):
+class Post(Model):
   timestamp = DateTimeField(default=datetime.datetime.now)
   user = ForeignKeyField(
-    rel_model = User,
+    User,
     related_name = 'posts'
   )
   content=TextField()
@@ -66,7 +67,7 @@ class Relationship(Model):
   class Meta:
     database=DATABASE
     indexes = (
-      ((from_user, to_user), True)
+      (('from_user', 'to_user'), True),
     )
 
 def initialize():
